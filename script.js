@@ -1,4 +1,44 @@
+// const humanChoice = getHumanChoice()
+const divResults = document.querySelector("#results");
+let humanWins = 0
+let computerWins = 0
+let ties = 0
 
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener("click", function (e) {
+        const humanChoice = e.target.id
+        const computerChoice = getComputerChoice()
+        console.log(computerChoice)
+        const result = (getWinner(humanChoice,computerChoice))
+        console.log(humanChoice)
+        console.log(computerChoice)
+        console.log(result)
+        console.log(humanWins,ties,computerWins)
+        divResults.textContent = result
+
+        document.getElementById("playerWins").textContent = humanWins;
+        document.getElementById("ties").textContent = ties;
+        document.getElementById("computerWins").textContent = computerWins;
+
+        if (computerWins >= 5){
+            setTimeout(() => {
+              if (confirm("You lose!\nPlay again?")){
+                window.location.reload()
+              }
+        }, 0);
+    }
+
+        if (humanWins >= 5){
+            setTimeout(() => {
+            if (confirm("You win!\nPlay again?")){
+                window.location.reload()
+            }
+        }, 0);
+        }
+
+    });
+});
 
 function getComputerChoice () {
   const randomNumber = Math.floor(Math.random() * 3);
@@ -13,31 +53,31 @@ function getComputerChoice () {
   }
 }
 
-function getHumanChoice() {
-    const choice = prompt('Rock Paper or Scissors?').toLowerCase();
-    if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
-        return choice;
-    } else {
-        console.log('Invalid choice');
-    }
-}
+// function getHumanChoice(event){
+//     const choice = event.target.id
+//     console.log(choice)
+//     return choice
+// }
 
-const humanChoice = getHumanChoice()
-const computerChoice = getComputerChoice()
-let humanWins = 0
-let computerWins = 0
-let ties = 0
+// function getHumanChoice() {
+//     const choice = prompt('Rock Paper or Scissors?').toLowerCase();
+//     if (choice === 'rock' || choice === 'paper' || choice === 'scissors') {
+//         return choice;
+//     } else {
+//         console.log('Invalid choice');
+//     }
+// }
 
-function getWinner() {
+function getWinner(humanChoice, computerChoice) {
     switch (humanChoice){
-        case 'paper':
+        case "paper":
             if (computerChoice === 'rock'){
                 humanWins++
-                return "You chose Paper, Computer chose Rock \nYou Win!"
+                return `You chose Paper, Computer chose Rock \nYou Win!`
             }
             if (computerChoice === 'paper'){
                 ties++
-                return "You chose Paper, Computer also chose Paper\nTie!"
+                return `You chose Paper, Computer also chose Paper\nTie!`
             }
             if (computerChoice === 'scissors'){
                 computerWins++
@@ -75,20 +115,21 @@ function getWinner() {
             }
             if (computerChoice === 'scissors'){
                 humanWins++
-                return "You chose Rock, Computer also chose Scissors\nYou Win!"
+                return "You chose Rock, Computer chose Scissors\nYou Win!"
             }
             else {
                 return "Uhhhh... try that again..."
-
         }
-    }}
-console.log(computerChoice)
-console.log(getWinner())
-console.log(humanWins,computerWins)
 
-if (humanWins === 5){
-    alert("Player wins first to 5\nSCORE: "+humanWins+' '+computerWins)
-}
-if (computerWins === 5){
-    alert("Computer wins first to 5\nSCORE: "+computerWins+' '+humanWins)
-}
+        default :
+            console.log("Error")
+            return "error"
+
+    }}
+
+
+// const content = document.createElement("div");
+//     content.classList.add("content");
+//     content.textContent = result;
+//     content.style.color = "blue"
+// divResults.append(content)
